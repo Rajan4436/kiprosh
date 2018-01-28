@@ -1,0 +1,8 @@
+<h1>Editing Note</h1>
+
+<div class="space-after">
+	<%= render 'form', note: @note %>
+</div>
+
+<%= link_to 'Show', @note, class: "btn btn-dark" %> 
+<%= link_to 'Back', notes_path, class: "btn btn-dark" %>

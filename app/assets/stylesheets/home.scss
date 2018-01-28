@@ -1,0 +1,56 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+html,
+body{
+ height: 100%;
+ background: #f5f5dc;
+}
+
+h2,h3{
+	margin: 30px auto;
+}
+
+.cover{
+	margin:auto;
+	border-radius: 10px;
+	padding: 30px;
+	// box-shadow: 0 0 42px 5px rgba(0, 0, 0, 0.1);
+	margin-top: 50px;
+	border: 1px solid rgba(0,0,0,0.1);
+	background: #17a2b84a;
+
+	.label{
+		padding: 0 10px;
+	}
+}
+.space-after{
+	padding-bottom: 30px;
+}
+
+.space-before{
+	padding-top: 30px;
+}
+
+.field{
+	margin-bottom: 20px;
+}
+
+input[type=text] {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 10px 20px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}

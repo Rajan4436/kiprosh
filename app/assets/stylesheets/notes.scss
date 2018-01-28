@@ -1,0 +1,18 @@
+// Place all the styles related to the notes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.card{ 
+	.card-body{
+		height: 200px;
+		text-overflow: ellipsis;
+		overflow:hidden;
+	}
+}
+
+a{
+	text-decoration: none !important;
+	color: inherit;
+}
+a:hover .card{
+	box-shadow: 0 0 42px 5px rgba(0, 0, 0, 0.1);
+}

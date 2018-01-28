@@ -1,0 +1,68 @@
+<div class="space-after">
+	<div class="card">
+	  <div class="card-header">
+	  	<strong>User: </strong><%= @note.user.email %>
+	  </div>
+	  <div  class="card-body">
+	  	<%= @note.content %>
+		</div>
+		<div class="card-footer">
+			<% @note.tags.each do |tag| %>
+        <span class="badge badge-pill badge-info"><%= tag.tag_name %></span>
+      <% end %>
+		</div>
+	</div>
+</div>
+
+<% if (@moderator || @owner) %>
+
+<div class="share space-after">
+	<table class="table bg-white table-bordered">
+		<thead class="thead-dark">
+			<th>#</th>
+			<th>Email</th>
+			<th>Ability</th>
+			<th>Action</th>
+		</thead>
+		<tbody>
+			<% @users.each_with_index do |user, index| %>
+				<%= form_tag "/share", class: "form", method: :post do %>
+				<% ability = Ability.new(user, @note) %> 
+					<% if (current_user == user) || user == @note.user %>
+						<% next %>
+					<% end %>
+					<tr>
+						<td> <%= index %> </td>
+						<td> <%= user.email %> </td>			
+						<%= hidden_field_tag :id, @note.id %>
+						<%= hidden_field_tag :user, user.id %>
+						<td>
+						  <span class="mr-2">Read: <%= check_box_tag :read, true, (ability.can? :read, @note), class: "" %></span>
+		          <span class="mr-2">Update: <%= check_box_tag :update, true, (ability.can? :update, @note), class: "" %></span>				
+		          <span class="mr-2">Owner: <%= check_box_tag :owner, true, ((ability.can? :read, @note) && (ability.can? :update, @note) && (ability.can? :destroy, @note)), class: "" %> </span>			
+					  </td>			
+					  <td>
+
+					 		<% if ((user.has_role? :moderator, @note) || (user.has_role? :guest, @note) || (user.has_role? :owner, @note)) %>
+					  		<%= submit_tag "Revoke", class: "btn btn-danger" %>
+								<% else %>
+					  		<%= submit_tag "Share", class: "btn btn-success btn-sm" %>
+					  	<% end %>
+					  </td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<% end %>
+
+<% if (@moderator || @owner) %>
+	<%= link_to 'Edit', edit_note_path(@note), class: "btn btn-dark" %> 
+<% end %>
+<% if @owner %>       	
+	<%= link_to 'Destroy', @note, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark" %>
+<% end %>
+
+
+<%= link_to 'Back', notes_path, class: "btn btn-dark" %>

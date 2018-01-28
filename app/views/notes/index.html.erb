@@ -1,0 +1,74 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#home">My Notes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#menu1">Shared</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#menu2">Search</a>
+  </li>
+
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content space-after">
+  <div class="tab-pane active container" id="home">
+    <h1 class="space-after space-before text-center">My Notes</h1>
+    <div class="row">
+    <% @notes.each do |note| %>
+      <div class="col-sm-6 col-md-4 col-lg-3 space-after">
+        <%= link_to note do %>
+          <div class="card">
+            <div class="card-header"><b><%= note.user.email %></b></div>
+            <div class="card-body"><%= note.content %></div> 
+            <div class="card-footer">
+              <% note.tags.each do |tag| %>
+                <span class="badge badge-pill badge-info">
+                  <%= tag.tag_name %>
+                </span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    </div>
+    <%= link_to 'New Note', new_note_path, class: "btn btn-primary" %>
+  
+  </div>
+  <div class="tab-pane container" id="menu1">
+    <h1 class="space-after space-before text-center">Shared Notes</h1>
+    
+    <div class="row">
+    <% @shared_notes.each do |note| %>
+      <div class="col-sm-6 col-md-4 col-lg-3 space-after">
+        <%= link_to note do %>
+          <div class="card">
+            <div class="card-header"><b><%= note.user.email %></b></div>
+            <div class="card-body"><%= note.content %></div> 
+            <div class="card-footer">
+              <% note.tags.each do |tag| %>
+                <span class="badge badge-pill badge-info"><%= tag.tag_name %></span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="tab-pane container" id="menu2">
+    <h1 class="space-after space-before text-center">Search Notes</h1>
+    <label for="search-box">Enter single tag to search related notes</label>
+    <input type="text" name="search" id="search-box" placeholder="Search tags">
+    <div style="height: 20px;"></div>
+    <button class="btn btn-primary mr-auto" id="search-btn">Search</button>
+    <div style="height: 20px;"></div>
+    <div class="row" id="search-container">
+    
+    </div>
+  </div>
+
+</div>

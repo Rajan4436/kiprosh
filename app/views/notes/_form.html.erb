@@ -1,0 +1,66 @@
+
+<%= form_for(note, class: "form") do |f| %>
+  <% if note.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+
+      <ul>
+      <% note.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_area :content, class: 'form-control', rows: "10", required: :true %>
+  </div>
+  <div class="field">
+    <%= label_tag :tags, "Select Tags" %>
+    <%= select_tag :tags, options_from_collection_for_select(@tags, "tag_name", "tag_name", @note_tags), id: "pt", class: "form-control tags", multiple: true, placeholder: "" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Submit", class: "btn btn-info" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+  removed_tags  = [];
+  $('.tags').select2({
+    tags: true,
+    tokenSeparators: [',', ' '],
+    createTag: function (params) {
+      var term = $.trim(params.term);
+      
+      if (term === '') {
+        return null;
+      }
+
+      return {
+        id: term,
+        text: term,
+        newTag: true // add additional parameters
+      }
+    }
+  }).on('select2:unselect', function (evt) {
+    console.log(evt.params.data.text);
+    $.ajax({
+      type: "POST",
+      url: '/remove/tags',
+      data: { tag_name: evt.params.data.text,
+            note_id: <%= (@note.id.nil?) ? "u".to_s : @note.id %>
+       },    
+      //Or you can e.removed.text
+      error: function () {
+        alert("error");
+      }
+    });
+    // $("#removed").val(JSON.stringify(removed));
+  });
+}); 
+
+
+</script>
