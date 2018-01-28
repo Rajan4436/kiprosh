@@ -1,23 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Steps to follow to run the app;
 
-Things you may want to cover:
+* App has 4 roles, 
+	
+	guest => only read 
+	moderator => read and update
+	owner => can CRUD
+	admin => all access 
 
-* Ruby version
+* Run bundle and create databases, after that create a user. 
 
-* System dependencies
+* Inital user has no role provided and as he goes on with app, he will gain the access 
 
-* Configuration
+* after sign in user will be landed at home screen where it as 3 tabs stating 
+ - My notes (notes he created)
+ - Shared notes (notes shared to him by others)
+ - Search (to search notes by tag)
 
-* Database creation
+* On creating a note he will gain the access on owner on that note itself. he can create tags and share it to other users. 
 
-* Database initialization
+* The shared notes will be shown in shared notes tab. when you click on any note you will be landed on a page where you will see; actions are available to you according to your role specified by owner.
 
-* How to run the test suite
+* If you have moderator access you can also choose people with whom you want to share the note. 
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+* Note that already shared poeple will also in that list. You can see their access but cannot alter them until you have owner access. 
 
